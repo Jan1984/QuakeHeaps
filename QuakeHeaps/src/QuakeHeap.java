@@ -127,7 +127,7 @@ public class QuakeHeap<O> {
 		
 		
 		
-		System.out.println("+DECREASEKEY: " + target.obj + ", p:"+ target .value+ "\n");
+		System.out.println("+DECREASEKEY: " + target.obj + ", p:"+ target.value+ "\n");
 	
 		
 	
@@ -135,7 +135,7 @@ public class QuakeHeap<O> {
 	
 	
 	private void deleteMin() {
-		
+		System.out.println("+DELETEMIN: " + "\n");
 		//get smallest element
 		Node min = null;
 		for (LinkedList<Node> l: t)
@@ -191,7 +191,7 @@ public class QuakeHeap<O> {
 		
 		
 		
-		System.out.println("+DELETEMIN: " + "\n");
+		
 	}
 	
 	
@@ -210,7 +210,6 @@ public class QuakeHeap<O> {
 					System.out.println("n1: "+ n1.smallestValueNode.obj + ", n2: "+ n2.smallestValueNode.obj);
 					
 					link(n1, n2);
-					//tmplist.remove(n1);tmplist.remove(n2);
 					
 					
 					}
@@ -311,11 +310,25 @@ public class QuakeHeap<O> {
 		QuakeHeap<String> qh = new QuakeHeap<String>();
 
 		
-		qh.insert("zwei", 2);
+		qh.insert("zwei", 2);qh.giveInfo();
 		qh.insert("vier", 4);qh.giveInfo();
-		Object sechs = qh.insert("sechs", 6);
-		qh.insert("acht", 8);
-		qh.insert("zwoelf", 12);
+		Object sechs = qh.insert("sechs", 6);qh.giveInfo();
+		qh.insert("acht", 8);qh.giveInfo();
+		qh.insert("zwoelf", 12);qh.giveInfo();
+		qh.insert("null", 0);qh.giveInfo();
+		
+		qh.decreaseKey(sechs, 3);qh.giveInfo();
+		
+		qh.deleteMin();qh.giveInfo();
+		
+		qh.insert("null", 0);qh.giveInfo();
+		qh.insert("str17", 17);qh.giveInfo();
+		
+		qh.deleteMin();qh.giveInfo();
+		
+		
+		qh.insert("acht", 8);qh.giveInfo();
+		qh.insert("zwoelf", 12);qh.giveInfo();
 		qh.insert("null", 0);qh.giveInfo();
 		
 		qh.decreaseKey(sechs, 3);qh.giveInfo();
