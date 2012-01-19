@@ -115,7 +115,27 @@ public class QuakeHeap<O> {
 	
 	
 	private void deleteMin() {
-		// TODO Auto-generated method stub
+		System.out.println("+DELETEMIN: " + "\n");
+		
+	}
+	
+	
+	private void consolidation(){
+		for (int i = 0;i < t.size();++i){
+			for (Node n: t.get(i)){
+				
+			
+			}
+			
+		}
+		
+	}
+	private int testQuakeCondition(){
+		
+		for (int i = 0; i < n.size();++i) 
+			if ((n.get(i+1)==null?0:n.get(i+1)) >= (n.get(i+1)==null?0:(3 * n.get(i+1))/4) ) return i; // catch null if no integer in linkedlist
+		
+		return -1;
 		
 	}
 	
