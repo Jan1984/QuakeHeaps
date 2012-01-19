@@ -3,29 +3,51 @@ import java.util.LinkedList;
 
 public class QuakeHeap<O> {
 	
-	LinkedList<Node>[] t;
-	int[] n;
+	LinkedList<LinkedList<Node>> t;
+	LinkedList<Integer> n;
 	
 	
-	class Node{
+	public QuakeHeap(){
+		t = new LinkedList<LinkedList<Node>>();
+		n = new LinkedList<Integer>();
+	}
+	
+	
+	
+	
+	public class Node{
 		
 		//leaf properties
-		O obj;
-		int value;
-		Node highestNodeWithMyValue;
+		public O obj;
+		public int value;
+		public Node highestNodeWithMyValue;
 		
 		//node properties
-		int higth;
-		Node smallestValueNode;
-		Node parent;
-		Node childR;
-		Node childL;
+		public int hight;
+		public Node smallestValueNode;
+		public Node parent;
+		public Node childR;
+		public Node childL;
+		
+		public Node(O obj, int prior)
+		{
+			this.obj = obj;
+			value = prior;
+		}
 
 	}
 	
 	private O insert(O obj, int prior) {
+		Node tmp = new Node(obj, prior);
+		tmp.hight = 0;
+		insertIntoT(tmp,0);
 		return obj;
-		
+	}
+	
+	
+	private void insertIntoT(Node n, int hight){
+		if (t.get(hight) == null) t.add(0, new LinkedList<Node>()); // if there are no trees at t.get(hight)
+		t.get(hight).add(n);
 	}
 	
 	
@@ -43,12 +65,12 @@ public class QuakeHeap<O> {
 		// Testing
 		
 		
-		QuakeHeap qh = new QuakeHeap();
+		QuakeHeap<String> qh = new QuakeHeap<String>();
 
 		
 		qh.insert("zwei", 2);
 		qh.insert("vier", 4);
-		Object sechs = qh.insert("sechs", 6);
+		String sechs = qh.insert("sechs", 6);
 		qh.insert("acht", 8);
 		qh.insert("zwoelf", 12);
 		qh.insert("null", 0);
