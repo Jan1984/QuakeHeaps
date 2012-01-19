@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 
 public class QuakeHeap<O> {
@@ -37,16 +38,40 @@ public class QuakeHeap<O> {
 
 	}
 	
-	private O insert(O obj, int prior) {
+	private Node insert(O obj, int prior) {
 		Node tmp = new Node(obj, prior);
 		tmp.hight = 0;
 		insertIntoT(tmp,0);
-		return obj;
+		 System.out.println("+INSERT: " + obj + ", p:"+ prior + "\n");
+
+		 System.out.println("T[] contents:");
+		for (LinkedList<Node> l: t){
+			System.out.println("\tT["+t.indexOf(l)+"] contents:");
+			for (Node n: l) 
+				   System.out.println("\t\t" + n.obj + ", prior:" + n.value);
+		}
+
+
+		
+		return tmp;
 	}
 	
 	
 	private void insertIntoT(Node n, int hight){
-		if (t.get(hight) == null) t.add(0, new LinkedList<Node>()); // if there are no trees at t.get(hight)
+		
+		try{
+			t.get(hight);
+		}
+			 catch ( NoSuchElementException e )
+	      {
+				 t.add(0, new LinkedList<Node>()); // create new List if there are no trees at t.get(hight)
+	      }
+		 catch ( IndexOutOfBoundsException e )
+	      {
+				 t.add(0, new LinkedList<Node>()); // create new List if there are no trees at t.get(hight)
+				
+	      }
+			
 		t.get(hight).add(n);
 	}
 	
@@ -70,7 +95,7 @@ public class QuakeHeap<O> {
 		
 		qh.insert("zwei", 2);
 		qh.insert("vier", 4);
-		String sechs = qh.insert("sechs", 6);
+		Object sechs = qh.insert("sechs", 6);
 		qh.insert("acht", 8);
 		qh.insert("zwoelf", 12);
 		qh.insert("null", 0);
