@@ -1,6 +1,15 @@
 
 public class QuakeHeaps {
 	
-	//test 02
+	
+	
+	class Node{
+		
+		//leaf properties
+		Object obj;
+		int value;
+		Node biggestNodeWithMyValue;
+		
+	}
 
 }
