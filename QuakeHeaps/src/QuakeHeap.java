@@ -1,6 +1,9 @@
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+
+
 
 
 public class QuakeHeap<O> {
@@ -137,10 +140,13 @@ public class QuakeHeap<O> {
 			for (Node n: l) 
 				if (min == null || min.smallestValueNode.value > n.smallestValueNode.value) min = n;
 		
+		System.out.println("-MIN "+  min.obj + ", "+ min.value);
 		
 		//delete path
 		Node tmp = min;
 		while(tmp != min.smallestValueNode ){
+			
+			System.out.println("-DELPATH "+ tmp.obj + ", "+ tmp.value);
 			
 			if (tmp.childL.smallestValueNode == min.smallestValueNode){
 				
@@ -168,6 +174,8 @@ public class QuakeHeap<O> {
 			
 		}
 		
+		deleteInT(min.smallestValueNode);
+		
 		consolidation();
 		if (testQuakeCondition() != -1) {
 			
@@ -187,19 +195,48 @@ public class QuakeHeap<O> {
 	
 	private void consolidation(){
 		for (int i = 0;i < t.size();++i){
-			for (int j = 0;j < t.get(i).size();++j){
-				if (t.get(i).size() > 1) {
-					link(t.get(i).get(j), t.get(i).get(j+1));
-					t.get(i).remove(j);t.get(i).remove(j+1);
-				}
-				LinkedList<Node> old = t.get(i);
-				LinkedList<Node> tmp = new LinkedList<Node>(); 
-				for(Node inte : old) tmp.add(inte);
-				old.clear();
-				old = tmp;
-				
+			//for (int j = 0;j < t.get(i).size();++j){
+				System.out.println("-CONSOL level(" +i+ ") , size: " + t.get(i).size());
+				//if (t.get(i).size() > 1) {
+				Node n1 = null;
+				Node n2 = null;
+					Iterator it = t.get(i).iterator();
+					while (it.hasNext()){
+						 n1 = (Node) it.next();
+						 n2 = null;
+						try {
+							n2 = (Node) it.next();
+						}catch (NoSuchElementException e){
+							
+							break;
+	
+						}
+						link(n1, n2);
+						t.get(i).remove(n1);t.get(i).remove(n2);
+						n1 = null;n2 = null;
+					}
+					
+					
+					LinkedList<Node> tmp = new LinkedList<Node>(); 
+					if (n1 != null ) tmp.add(n1);
+					t.add(i, tmp);
+					
+					
+					
+					//System.out.println(t.get(i).get(j).obj + " :: " + t.get(i).get(j+1).obj);
+					
+					
+					//link(t.get(i).get(j), t.get(i).get(j+1));
+					//t.get(i).remove(j);t.get(i).remove(j+1);
+					//++j;
+				//}
+				//LinkedList<Node> old = t.get(i);
+				//LinkedList<Node> tmp = new LinkedList<Node>(); 
+				//for(Node inte : old) tmp.add(inte);
+				//old.clear();
+				//old = tmp;
 			
-			}
+			//}
 			
 		}
 		
