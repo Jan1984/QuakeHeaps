@@ -121,8 +121,22 @@ public class QuakeHeap<O> {
 	
 	
 	private void deleteMin() {
-		System.out.println("+DELETEMIN: " + "\n");
 		
+		Node min = null;
+		for (LinkedList<Node> l: t)
+			for (Node n: l) 
+				if (min == null || min.smallestValueNode.value > n.smallestValueNode.value) min = n;
+		
+		
+		//delete path
+		
+		min
+		
+		
+		
+		
+		
+		System.out.println("+DELETEMIN: " + "\n");
 	}
 	
 	
