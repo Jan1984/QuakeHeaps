@@ -130,7 +130,7 @@ public class QuakeHeap<O> {
 		
 		//delete path
 		
-		min
+		//min;
 		
 		
 		
