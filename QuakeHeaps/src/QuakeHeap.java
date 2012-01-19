@@ -62,7 +62,7 @@ public class QuakeHeap<O> {
 			for (LinkedList<Node> l: t){
 				System.out.println("\tT["+t.indexOf(l)+"] contents:");
 				for (Node n: l) 
-					   System.out.println("\t\t" + n.obj + ", prior:" + n.value);
+					   System.out.println("\t\t" + n.smallestValueNode.obj + ", prior:" + n.smallestValueNode.value);
 			}
 	}
 	
@@ -109,7 +109,8 @@ public class QuakeHeap<O> {
 		Node highestOne = target.highestNodeWithMyValue;
 		Node highestOneParent = target.highestNodeWithMyValue.parent;
 		
-		if (highestOneParent != null){ // no parent: must be root
+		if (highestOneParent != null){ 
+			// no parent: must be root
 			if (highestOneParent.childR == null || highestOneParent.childR.equals(highestOne)) highestOneParent.childR = null;
 			else if (highestOneParent.childL == null || highestOneParent.childL.equals(highestOne)) highestOneParent.childL = null;
 			else {
@@ -120,7 +121,8 @@ public class QuakeHeap<O> {
 		
 		
 		
-		insertIntoT(highestOne, highestOne.height);
+		
+		//insertIntoT(highestOne, highestOne.height);
 		target.value = i;
 		
 		
@@ -201,16 +203,14 @@ public class QuakeHeap<O> {
 				System.out.println("-CONSOL level(" +i+ ") , size: " + tmplist.size());
 				
 				while (tmplist.size() > 1) {
-				
-					
-				
+								
 					Node n1 = tmplist.poll();
 					Node n2 = tmplist.poll();
 					
-					System.out.println("n1: "+ n1.obj + ", n2: "+ n2.obj);
+					System.out.println("n1: "+ n1.smallestValueNode.obj + ", n2: "+ n2.smallestValueNode.obj);
 					
 					link(n1, n2);
-					t.get(i).remove(n1);t.get(i).remove(n2);
+					//tmplist.remove(n1);tmplist.remove(n2);
 					
 					
 					}
@@ -224,12 +224,21 @@ public class QuakeHeap<O> {
 	
 	private void link(Node n1, Node n2) {
 		Node newparent = new Node();
-		if (n1.smallestValueNode.value <= n2.smallestValueNode.value )
-			newparent.smallestValueNode = n1.smallestValueNode;	
-		else newparent.smallestValueNode = n2.smallestValueNode;	
+		
+		if (n1.smallestValueNode.value <= n2.smallestValueNode.value ){
+			newparent.smallestValueNode = n1.smallestValueNode;	}
+		else {newparent.smallestValueNode = n2.smallestValueNode;	}
+		
 		
 		newparent.height = n1.height+1;
 		newparent.highestNodeWithMyValue = newparent;
+		
+		
+		
+		
+		
+		
+		
 		insertIntoT(newparent,newparent.height);
 		
 		incN(newparent.height);
