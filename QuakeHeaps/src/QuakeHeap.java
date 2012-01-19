@@ -84,6 +84,15 @@ public class QuakeHeap<O> {
 		t.get(height).add(n);
 	}
 	
+	private void deleteInT(Node n){
+		for (LinkedList<Node> l: t)
+			if (l.contains(n)) l.remove(n);
+		
+		}
+	
+	
+	
+	
 	/*
 	private void decreaseKey(O obj, int i) {
 		for (LinkedList<Node> l: t)
@@ -122,6 +131,7 @@ public class QuakeHeap<O> {
 	
 	private void deleteMin() {
 		
+		//get smallest element
 		Node min = null;
 		for (LinkedList<Node> l: t)
 			for (Node n: l) 
@@ -129,8 +139,45 @@ public class QuakeHeap<O> {
 		
 		
 		//delete path
+		Node tmp = min;
+		while(tmp != min.smallestValueNode ){
+			
+			if (tmp.childL.smallestValueNode == min.smallestValueNode){
+				
+				Node orphan = tmp.childR;
+				tmp.childR = null; 
+				orphan.parent = null;
+				insertIntoT(orphan, orphan.height);
+				Integer inte = n.get(tmp.height) - 1 ;
+				n.add(tmp.height, inte);
+				deleteInT(tmp);
+				
+				tmp = tmp.childL;
+				
+			}else {
+				
+				Node orphan = tmp.childL;
+				tmp.childL = null; 
+				orphan.parent = null;
+				insertIntoT(orphan, orphan.height);
+				Integer inte = n.get(tmp.height) - 1 ;
+				n.add(tmp.height, inte);
+				deleteInT(tmp);
+				
+				tmp = tmp.childR;
+				
+			}
+			
+		}
 		
-		//min;
+		consolidation();
+		if (testQuakeCondition() != -1) {
+			
+			testQuakeCondition();
+			
+			
+		}
+		
 		
 		
 		
