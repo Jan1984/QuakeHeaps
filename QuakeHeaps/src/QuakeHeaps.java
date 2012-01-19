@@ -8,7 +8,17 @@ public class QuakeHeaps {
 		//leaf properties
 		Object obj;
 		int value;
-		Node biggestNodeWithMyValue;
+		Node highestNodeWithMyValue;
+		
+		//node properties
+		int higth;
+		Node smallestValueNode;
+		Node parent;
+		Node childR;
+		Node childL;
+		
+		
+		
 		
 	}
 
