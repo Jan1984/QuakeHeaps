@@ -248,11 +248,11 @@ public class QuakeHeap<O> {
 			}
 				 catch ( NoSuchElementException e )
 		      {
-					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+					 n.add(i, new Integer(0)); // create new Integer if none are set to 0: avoid exceptions
 		      }
 			 catch ( IndexOutOfBoundsException e )
 		      {
-					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+					 n.add(i, new Integer(0)); // create new Integer if none are set to 0: avoid exceptions
 		      }
 		}
 		
@@ -271,11 +271,11 @@ public class QuakeHeap<O> {
 			}
 				 catch ( NoSuchElementException e )
 		      {
-					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+					 n.add(i, new Integer(0)); // create new Integer if none are set to 0: avoid exceptions
 		      }
 			 catch ( IndexOutOfBoundsException e )
 		      {
-					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+					 n.add(i, new Integer(0)); // create new Integer if none are set to 0: avoid exceptions
 		      }
 		}
 		
