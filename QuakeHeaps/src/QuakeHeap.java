@@ -1,16 +1,16 @@
 import java.util.LinkedList;
 
 
-public class QuakeHeap {
+public class QuakeHeap<O> {
 	
-	LinkedList[] t;
+	LinkedList<Node>[] t;
 	int[] n;
 	
 	
 	class Node{
 		
 		//leaf properties
-		Object obj;
+		O obj;
 		int value;
 		Node highestNodeWithMyValue;
 		
@@ -23,11 +23,21 @@ public class QuakeHeap {
 
 	}
 	
-	private void insert(Integer integer) {
+	private O insert(O obj, int prior) {
+		return obj;
+		
+	}
+	
+	
+	private void decreaseKey(Object obj, int i) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	private void deleteMin() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public static void main(String[] args) {
 		// Testing
@@ -36,12 +46,24 @@ public class QuakeHeap {
 		QuakeHeap qh = new QuakeHeap();
 
 		
-		qh.insert(new Integer(2));
-		qh.insert(new Integer(4));
-		qh.insert(new Integer(6));
-		qh.insert(new Integer(8));
-		qh.insert(new Integer(12));
+		qh.insert("zwei", 2);
+		qh.insert("vier", 4);
+		Object sechs = qh.insert("sechs", 6);
+		qh.insert("acht", 8);
+		qh.insert("zwoelf", 12);
+		qh.insert("null", 0);
+		
+		qh.decreaseKey(sechs, 3);
+		
+		qh.deleteMin();
+		
 	}
+
+
+	
+
+
+	
 
 	
 
