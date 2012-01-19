@@ -148,8 +148,7 @@ public class QuakeHeap<O> {
 				tmp.childR = null; 
 				orphan.parent = null;
 				insertIntoT(orphan, orphan.height);
-				Integer inte = n.get(tmp.height) - 1 ;
-				n.add(tmp.height, inte);
+				decN(tmp.height);
 				deleteInT(tmp);
 				
 				tmp = tmp.childL;
@@ -160,8 +159,7 @@ public class QuakeHeap<O> {
 				tmp.childL = null; 
 				orphan.parent = null;
 				insertIntoT(orphan, orphan.height);
-				Integer inte = n.get(tmp.height) - 1 ;
-				n.add(tmp.height, inte);
+				decN(tmp.height);
 				deleteInT(tmp);
 				
 				tmp = tmp.childR;
@@ -215,8 +213,57 @@ public class QuakeHeap<O> {
 		newparent.height = n1.height+1;
 		newparent.highestNodeWithMyValue = newparent;
 		insertIntoT(newparent,newparent.height);
-		Integer inte = n.get(newparent.height) + 1 ;
-		n.add(newparent.height, inte);
+		
+		incN(newparent.height);
+		
+		
+		
+	}
+
+
+	private void incN(int height) {
+		
+		
+		for(int i = 0; i <= height;++i){
+			try{
+				n.get(i);
+			}
+				 catch ( NoSuchElementException e )
+		      {
+					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+		      }
+			 catch ( IndexOutOfBoundsException e )
+		      {
+					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+		      }
+		}
+		
+		
+		Integer inte = n.get(height) + 1 ;
+		n.add(height, inte);
+		
+	}
+	
+	private void decN(int height) {
+		
+		
+		for(int i = 0; i <= height;++i){
+			try{
+				n.get(i);
+			}
+				 catch ( NoSuchElementException e )
+		      {
+					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+		      }
+			 catch ( IndexOutOfBoundsException e )
+		      {
+					 n.add(i, new Integer(0)); // create new List if there are no trees at t.get(hight)
+		      }
+		}
+		
+		
+		Integer inte = n.get(height) - 1 ;
+		n.add(height, inte);
 		
 	}
 
