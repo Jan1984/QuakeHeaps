@@ -41,19 +41,22 @@ public class QuakeHeap<O> {
 	private Node insert(O obj, int prior) {
 		Node tmp = new Node(obj, prior);
 		tmp.hight = 0;
+		tmp.highestNodeWithMyValue = tmp;
 		insertIntoT(tmp,0);
-		 System.out.println("+INSERT: " + obj + ", p:"+ prior + "\n");
 
-		 System.out.println("T[] contents:");
-		for (LinkedList<Node> l: t){
-			System.out.println("\tT["+t.indexOf(l)+"] contents:");
-			for (Node n: l) 
-				   System.out.println("\t\t" + n.obj + ", prior:" + n.value);
-		}
+		System.out.println("+INSERT: " + obj + ", p:"+ prior);
 
-
-		
 		return tmp;
+	}
+	
+	
+	public void giveInfo(){
+		 System.out.println("T[] contents:");
+			for (LinkedList<Node> l: t){
+				System.out.println("\tT["+t.indexOf(l)+"] contents:");
+				for (Node n: l) 
+					   System.out.println("\t\t" + n.obj + ", prior:" + n.value);
+			}
 	}
 	
 	
@@ -75,11 +78,41 @@ public class QuakeHeap<O> {
 		t.get(hight).add(n);
 	}
 	
-	
-	private void decreaseKey(Object obj, int i) {
-		// TODO Auto-generated method stub
+	/*
+	private void decreaseKey(O obj, int i) {
+		for (LinkedList<Node> l: t)
+			if (l.contains(obj)) ; 
 		
 	}
+	*/
+	
+	private void decreaseKey(Object obj, int i) {
+		Node target = (Node) obj;
+		Node highestOne = target.highestNodeWithMyValue;
+		Node highestOneParent = target.highestNodeWithMyValue.parent;
+		
+		if (highestOneParent != null){ // no parent: must be root
+			if (highestOneParent.childR == null || highestOneParent.childR.equals(highestOne)) highestOneParent.childR = null;
+			else if (highestOneParent.childL == null || highestOneParent.childL.equals(highestOne)) highestOneParent.childL = null;
+			else {
+				// no children: must be leaf
+			}
+		}		
+		highestOne.parent = null;
+		
+		
+		
+		insertIntoT(highestOne, highestOne.hight);
+		target.value = i;
+		
+		
+		
+		System.out.println("+DECREASEKEY: " + target.obj + ", p:"+ target .value+ "\n");
+	
+		
+	
+	}
+	
 	
 	private void deleteMin() {
 		// TODO Auto-generated method stub
@@ -94,15 +127,15 @@ public class QuakeHeap<O> {
 
 		
 		qh.insert("zwei", 2);
-		qh.insert("vier", 4);
+		qh.insert("vier", 4);qh.giveInfo();
 		Object sechs = qh.insert("sechs", 6);
 		qh.insert("acht", 8);
 		qh.insert("zwoelf", 12);
-		qh.insert("null", 0);
+		qh.insert("null", 0);qh.giveInfo();
 		
-		qh.decreaseKey(sechs, 3);
+		qh.decreaseKey(sechs, 3);qh.giveInfo();
 		
-		qh.deleteMin();
+		qh.deleteMin();qh.giveInfo();
 		
 	}
 
