@@ -195,13 +195,19 @@ public class QuakeHeap<O> {
 	
 	private void consolidation(){
 		for (int i = 0;i < t.size();++i){
-				System.out.println("-CONSOL level(" +i+ ") , size: " + t.get(i).size());
-				while (t.get(i).size() > 1) {
+			LinkedList<Node> tmplist = t.get(i);
+			
+			
+				System.out.println("-CONSOL level(" +i+ ") , size: " + tmplist.size());
 				
+				while (tmplist.size() > 1) {
 				
+					
 				
-					Node n1 = t.get(i).poll();
-					Node n2 = t.get(i).poll();
+					Node n1 = tmplist.poll();
+					Node n2 = tmplist.poll();
+					
+					System.out.println("n1: "+ n1.obj + ", n2: "+ n2.obj);
 					
 					link(n1, n2);
 					t.get(i).remove(n1);t.get(i).remove(n2);
