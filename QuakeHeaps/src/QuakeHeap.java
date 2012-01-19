@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -24,24 +25,27 @@ public class QuakeHeap<O> {
 		public Node highestNodeWithMyValue;
 		
 		//node properties
-		public int hight;
+		public int height;
 		public Node smallestValueNode;
 		public Node parent;
 		public Node childR;
 		public Node childL;
 		
-		public Node(O obj, int prior)
+		public Node()
 		{
-			this.obj = obj;
-			value = prior;
+			
 		}
 
 	}
 	
 	private Node insert(O obj, int prior) {
-		Node tmp = new Node(obj, prior);
-		tmp.hight = 0;
+		Node tmp = new Node();
+		tmp.obj = obj;
+		tmp.value = prior;
+
+		tmp.height = 0;
 		tmp.highestNodeWithMyValue = tmp;
+		tmp.smallestValueNode = tmp;
 		insertIntoT(tmp,0);
 
 		System.out.println("+INSERT: " + obj + ", p:"+ prior);
@@ -60,22 +64,24 @@ public class QuakeHeap<O> {
 	}
 	
 	
-	private void insertIntoT(Node n, int hight){
+	private void insertIntoT(Node n, int height){
 		
-		try{
-			t.get(hight);
+		
+		for(int i = 0; i <= height;++i){
+			try{
+				t.get(i);
+			}
+				 catch ( NoSuchElementException e )
+		      {
+					 t.add(i, new LinkedList<Node>()); // create new List if there are no trees at t.get(hight)
+		      }
+			 catch ( IndexOutOfBoundsException e )
+		      {
+					 t.add(i, new LinkedList<Node>()); // create new List if there are no trees at t.get(hight)
+		      }
 		}
-			 catch ( NoSuchElementException e )
-	      {
-				 t.add(0, new LinkedList<Node>()); // create new List if there are no trees at t.get(hight)
-	      }
-		 catch ( IndexOutOfBoundsException e )
-	      {
-				 t.add(0, new LinkedList<Node>()); // create new List if there are no trees at t.get(hight)
-				
-	      }
 			
-		t.get(hight).add(n);
+		t.get(height).add(n);
 	}
 	
 	/*
@@ -102,7 +108,7 @@ public class QuakeHeap<O> {
 		
 		
 		
-		insertIntoT(highestOne, highestOne.hight);
+		insertIntoT(highestOne, highestOne.height);
 		target.value = i;
 		
 		
@@ -122,7 +128,16 @@ public class QuakeHeap<O> {
 	
 	private void consolidation(){
 		for (int i = 0;i < t.size();++i){
-			for (Node n: t.get(i)){
+			for (int j = 0;j < t.get(i).size();++j){
+				if (t.get(i).size() > 1) {
+					link(t.get(i).get(j), t.get(i).get(j+1));
+					t.get(i).remove(j);t.get(i).remove(j+1);
+				}
+				LinkedList<Node> old = t.get(i);
+				LinkedList<Node> tmp = new LinkedList<Node>(); 
+				for(Node inte : old) tmp.add(inte);
+				old.clear();
+				old = tmp;
 				
 			
 			}
@@ -130,6 +145,21 @@ public class QuakeHeap<O> {
 		}
 		
 	}
+	private void link(Node n1, Node n2) {
+		Node newparent = new Node();
+		if (n1.smallestValueNode.value <= n2.smallestValueNode.value )
+			newparent.smallestValueNode = n1.smallestValueNode;	
+		else newparent.smallestValueNode = n2.smallestValueNode;	
+		
+		newparent.height = n1.height+1;
+		newparent.highestNodeWithMyValue = newparent;
+		insertIntoT(newparent,newparent.height);
+		Integer inte = n.get(newparent.height) + 1 ;
+		n.add(newparent.height, inte);
+		
+	}
+
+
 	private int testQuakeCondition(){
 		
 		for (int i = 0; i < n.size();++i) 
