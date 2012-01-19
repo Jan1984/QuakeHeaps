@@ -195,52 +195,27 @@ public class QuakeHeap<O> {
 	
 	private void consolidation(){
 		for (int i = 0;i < t.size();++i){
-			//for (int j = 0;j < t.get(i).size();++j){
 				System.out.println("-CONSOL level(" +i+ ") , size: " + t.get(i).size());
-				//if (t.get(i).size() > 1) {
-				Node n1 = null;
-				Node n2 = null;
-					Iterator it = t.get(i).iterator();
-					while (it.hasNext()){
-						 n1 = (Node) it.next();
-						 n2 = null;
-						try {
-							n2 = (Node) it.next();
-						}catch (NoSuchElementException e){
-							
-							break;
-	
-						}
-						link(n1, n2);
-						t.get(i).remove(n1);t.get(i).remove(n2);
-						n1 = null;n2 = null;
+				while (t.get(i).size() > 1) {
+				
+				
+				
+					Node n1 = t.get(i).poll();
+					Node n2 = t.get(i).poll();
+					
+					link(n1, n2);
+					t.get(i).remove(n1);t.get(i).remove(n2);
+					
+					
 					}
-					
-					
-					LinkedList<Node> tmp = new LinkedList<Node>(); 
-					if (n1 != null ) tmp.add(n1);
-					t.add(i, tmp);
-					
-					
-					
-					//System.out.println(t.get(i).get(j).obj + " :: " + t.get(i).get(j+1).obj);
-					
-					
-					//link(t.get(i).get(j), t.get(i).get(j+1));
-					//t.get(i).remove(j);t.get(i).remove(j+1);
-					//++j;
-				//}
-				//LinkedList<Node> old = t.get(i);
-				//LinkedList<Node> tmp = new LinkedList<Node>(); 
-				//for(Node inte : old) tmp.add(inte);
-				//old.clear();
-				//old = tmp;
-			
-			//}
+
+
+				}
+	
 			
 		}
 		
-	}
+	
 	private void link(Node n1, Node n2) {
 		Node newparent = new Node();
 		if (n1.smallestValueNode.value <= n2.smallestValueNode.value )
